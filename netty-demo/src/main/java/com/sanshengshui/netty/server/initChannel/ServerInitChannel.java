@@ -1,6 +1,5 @@
 package com.sanshengshui.netty.server.initChannel;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.nio.NioSocketChannel;
 

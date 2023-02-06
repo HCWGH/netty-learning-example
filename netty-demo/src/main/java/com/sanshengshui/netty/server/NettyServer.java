@@ -2,8 +2,6 @@ package com.sanshengshui.netty.server;
 
 import com.sanshengshui.netty.server.initChannel.ServerInitChannel;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
