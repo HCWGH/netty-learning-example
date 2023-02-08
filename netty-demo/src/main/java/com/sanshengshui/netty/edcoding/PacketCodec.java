@@ -24,7 +24,7 @@ public class PacketCodec {
      * @param packet
      * @return
      */
-    public ByteBuf encode(Packet packet) {
+    public static ByteBuf encode(Packet packet) {
         ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
         //写入魔数
         byteBuf.writeInt(MAGIC_NUMBER);
@@ -52,7 +52,7 @@ public class PacketCodec {
      * @param byteBuf
      * @return
      */
-    public Packet decode(ByteBuf byteBuf) {
+    public static Packet decode(ByteBuf byteBuf) {
         //跳过魔数验证(4字节)
         byteBuf.skipBytes(4);
         //跳过版本号(1字节)

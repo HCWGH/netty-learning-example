@@ -1,6 +1,9 @@
 package com.sanshengshui.netty.client.initChannel;
 
+import com.sanshengshui.netty.client.handler.ClientBaseHandler;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**
@@ -9,8 +12,11 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * @todo
  */
 public class ClientInitChannel extends ChannelInitializer<NioSocketChannel> {
-    @Override
-    protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
+    private final static ClientBaseHandler BASE_CLIENT_HANDLER = new ClientBaseHandler();
 
+    @Override
+    protected void initChannel(NioSocketChannel channel) throws Exception {
+        ChannelPipeline pipeline = channel.pipeline();
+        pipeline.addLast(BASE_CLIENT_HANDLER);
     }
 }

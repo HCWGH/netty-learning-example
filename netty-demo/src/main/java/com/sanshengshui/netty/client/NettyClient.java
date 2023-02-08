@@ -4,7 +4,9 @@ import com.sanshengshui.netty.client.initChannel.ClientInitChannel;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,12 +22,12 @@ public class NettyClient {
         NioEventLoopGroup group = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group)
-                .channel(NioServerSocketChannel.class)
+                .channel(NioSocketChannel.class)
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .handler(new ClientInitChannel());
-        bind(8090, "172.16.1.96", bootstrap, MAX_RETRY);
+        bind(9091, "127.0.0.1", bootstrap, MAX_RETRY);
     }
 
     public static void bind(int port, String ip, Bootstrap bootstrap, int retry) {

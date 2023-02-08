@@ -1,6 +1,7 @@
 package com.sanshengshui.netty.model;
 
 import com.sanshengshui.netty.message.req.LoginReq;
+import com.sanshengshui.netty.message.res.LoinRes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public enum CommandType {
     LOGIN_REQUEST((byte) 1, "LOGIN_REQUEST", LoginReq.class),
-
+    LOGIN_RESPONSE((byte) 2, "LOGIN_RESPONSE", LoinRes.class),
     ;
     private Byte bytes;
     private String name;
