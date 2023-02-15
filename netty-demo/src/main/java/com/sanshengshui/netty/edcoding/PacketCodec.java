@@ -71,4 +71,31 @@ public class PacketCodec {
         Class<? extends Packet> instance = PocketSubClassInit.getPacketClass(commandType);
         return serialize.deserialization(dataBytes, instance);
     }
+
+    /**
+     * 数据编码用户交互传输
+     *
+     * @param packet
+     * @return
+     */
+    public static ByteBuf encode(Packet packet,ByteBuf byteBuf) {
+        //写入魔数
+        byteBuf.writeInt(MAGIC_NUMBER);
+        //写入版本号
+        byteBuf.writeByte(packet.getVersion());
+        //写入枚举类对应的序列化算法
+        byteBuf.writeByte(packet.getSerializeAlgorithm());
+        //指令类型
+        byteBuf.writeByte(packet.getCommandType());
+        //数据长度
+        Byte serializeAlgorithm = packet.getSerializeAlgorithm();
+        BodySerialize serialize = SerializeEum.getSerializeAlgorithm(serializeAlgorithm);
+        //序列化
+        byte[] bodyData = serialize.serialize(packet);
+        int byteLength = bodyData.length;
+        byteBuf.writeInt(byteLength);
+        //数据
+        byteBuf.writeBytes(bodyData);
+        return byteBuf;
+    }
 }

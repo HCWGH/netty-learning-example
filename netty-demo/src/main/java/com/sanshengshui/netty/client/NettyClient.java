@@ -1,13 +1,20 @@
 package com.sanshengshui.netty.client;
 
 import com.sanshengshui.netty.client.initChannel.ClientInitChannel;
+import com.sanshengshui.netty.edcoding.PacketCodec;
+import com.sanshengshui.netty.message.req.MessageReq;
+import com.sanshengshui.netty.util.LoginUtil;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,6 +41,8 @@ public class NettyClient {
         bootstrap.connect(ip, port).addListener(future -> {
             if (future.isSuccess()) {
                 System.out.println("客户端绑定服务成功，ip=" + ip + "，端口=" + port);
+                Channel channel = ((ChannelFuture) future).channel();
+                clientSendMessageThread(channel).start();
             } else {
                 if (retry == 0) {
                     System.out.println("客户端绑定服务失败，ip=" + ip + "，端口=" + port + ",重试次数已使用完毕");
@@ -42,6 +51,22 @@ public class NettyClient {
                 long delay = 1L << (MAX_RETRY - retry);
                 int retryCount = retry - 1;
                 bootstrap.config().group().schedule(() -> bind(port, ip, bootstrap, retryCount), delay, TimeUnit.SECONDS);
+            }
+        });
+    }
+
+    public static Thread clientSendMessageThread(Channel channel) {
+        return new Thread(() -> {
+            while (!Thread.interrupted()) {
+                if (LoginUtil.hasLogin(channel)) {
+                    System.out.println("send message to server:");
+                    Scanner scanner = new Scanner(System.in);
+                    String nextLine = scanner.nextLine();
+                    MessageReq messageReq = new MessageReq();
+                    messageReq.setMessage(nextLine);
+                    ByteBuf byteBuf = PacketCodec.encode(messageReq);
+                    channel.writeAndFlush(byteBuf);
+                }
             }
         });
     }

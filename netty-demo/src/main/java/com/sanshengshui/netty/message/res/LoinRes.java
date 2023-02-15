@@ -10,6 +10,15 @@ import com.sanshengshui.netty.protocol.Packet;
  */
 public class LoinRes extends Packet {
     private String responseMes;
+    private Boolean isSuccessful;
+
+    public Boolean getSuccessful() {
+        return isSuccessful;
+    }
+
+    public void setSuccessful(Boolean successful) {
+        isSuccessful = successful;
+    }
 
     @Override
     public Byte getCommandType() {

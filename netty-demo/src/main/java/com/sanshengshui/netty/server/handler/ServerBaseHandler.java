@@ -3,8 +3,11 @@ package com.sanshengshui.netty.server.handler;
 
 import com.sanshengshui.netty.edcoding.PacketCodec;
 import com.sanshengshui.netty.message.req.LoginReq;
+import com.sanshengshui.netty.message.req.MessageReq;
 import com.sanshengshui.netty.message.res.LoinRes;
+import com.sanshengshui.netty.message.res.MessageRes;
 import com.sanshengshui.netty.protocol.Packet;
+import com.sanshengshui.netty.util.LoginUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -47,11 +50,27 @@ public class ServerBaseHandler extends ChannelInboundHandlerAdapter {
             //response message
             LoinRes loinRes = new LoinRes();
             String response = "Hello ," + userName + " welcome to our service";
+            loinRes.setSuccessful(true);
             loinRes.setResponseMes(response);
             ByteBuf encode = PacketCodec.encode(loinRes);
             ctx.channel().writeAndFlush(encode);
         } else {
-            System.out.println("====================What should we do==============");
+            //valid login
+            if (!LoginUtil.hasLogin(ctx.channel())) {
+                //response not login message
+                if (packet instanceof MessageReq) {
+                    MessageReq req = (MessageReq) packet;
+                    String message = req.getMessage();
+                    System.out.println("client request message: " + message);
+                    String resMessage = "do you say :" + message;
+                    MessageRes res = new MessageRes();
+                    res.setMessage(resMessage);
+                    ByteBuf encode = PacketCodec.encode(res);
+                    ctx.channel().writeAndFlush(encode);
+                }
+            } else {
+                System.out.println("====================What should we do==============");
+            }
         }
     }
 }

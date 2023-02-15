@@ -1,7 +1,9 @@
 package com.sanshengshui.netty.model;
 
 import com.sanshengshui.netty.message.req.LoginReq;
+import com.sanshengshui.netty.message.req.MessageReq;
 import com.sanshengshui.netty.message.res.LoinRes;
+import com.sanshengshui.netty.message.res.MessageRes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,8 @@ import java.util.Map;
 public enum CommandType {
     LOGIN_REQUEST((byte) 1, "LOGIN_REQUEST", LoginReq.class),
     LOGIN_RESPONSE((byte) 2, "LOGIN_RESPONSE", LoinRes.class),
+    MESSAGE_REQUEST((byte) 3, "MESSAGE_REQUEST", MessageReq.class),
+    MESSAGE_RESPONSE((byte) 4, "MESSAGE_RESPONSE", MessageRes.class),
     ;
     private Byte bytes;
     private String name;

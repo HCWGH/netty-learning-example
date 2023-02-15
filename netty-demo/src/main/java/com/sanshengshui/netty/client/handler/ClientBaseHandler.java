@@ -3,7 +3,9 @@ package com.sanshengshui.netty.client.handler;
 import com.sanshengshui.netty.edcoding.PacketCodec;
 import com.sanshengshui.netty.message.req.LoginReq;
 import com.sanshengshui.netty.message.res.LoinRes;
+import com.sanshengshui.netty.message.res.MessageRes;
 import com.sanshengshui.netty.protocol.Packet;
+import com.sanshengshui.netty.util.LoginUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -45,10 +47,19 @@ public class ClientBaseHandler extends ChannelInboundHandlerAdapter {
         Packet packet = PacketCodec.decode(byteBuf);
         if (packet instanceof LoinRes) {
             LoinRes res = (LoinRes) packet;
-            System.out.println("service response message :" + res + "\n" + "maybe to do something!!!");
-
+            if (res.getSuccessful()) {
+                System.out.println("service response message :" + res + "\n" + "Login success!!!");
+                LoginUtil.markLogin(ctx.channel());
+            } else {
+                System.out.println("service response message :" + res + "\n" + "Login failure!!!");
+            }
         } else {
-            System.out.println("==========================To do other something========================");
+            if (packet instanceof MessageRes) {
+                MessageRes res = (MessageRes) packet;
+                String message = res.getMessage();
+                System.out.println("server response message >>>>>>>>>>" + message);
+            }
+            //System.out.println("==========================To do other something========================");
         }
     }
 }
