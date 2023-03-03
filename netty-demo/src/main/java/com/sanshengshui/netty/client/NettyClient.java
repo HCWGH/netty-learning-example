@@ -1,6 +1,8 @@
 package com.sanshengshui.netty.client;
 
 import com.sanshengshui.netty.client.initChannel.ClientInitChannel;
+import com.sanshengshui.netty.command.impl.CommandHandleEnter;
+import com.sanshengshui.netty.command.impl.LoginCommandHandle;
 import com.sanshengshui.netty.edcoding.PacketCodec;
 import com.sanshengshui.netty.message.req.MessageReq;
 import com.sanshengshui.netty.util.LoginUtil;
@@ -42,7 +44,8 @@ public class NettyClient {
             if (future.isSuccess()) {
                 System.out.println("客户端绑定服务成功，ip=" + ip + "，端口=" + port);
                 Channel channel = ((ChannelFuture) future).channel();
-                clientSendMessageThread(channel).start();
+                //clientSendMessageThread(channel).start();
+                consoleSendMessage(channel);
             } else {
                 if (retry == 0) {
                     System.out.println("客户端绑定服务失败，ip=" + ip + "，端口=" + port + ",重试次数已使用完毕");
@@ -69,5 +72,20 @@ public class NettyClient {
                 }
             }
         });
+    }
+
+    public static void consoleSendMessage(Channel channel) {
+        LoginCommandHandle loginCommandHandle = new LoginCommandHandle();
+        CommandHandleEnter handleEnter = new CommandHandleEnter();
+        new Thread(() -> {
+            while (!Thread.interrupted()) {
+                Scanner scanner = new Scanner(System.in);
+                if (!LoginUtil.hasLogin(channel)) {
+                    loginCommandHandle.execute(scanner, channel);
+                } else {
+                    handleEnter.execute(scanner, channel);
+                }
+            }
+        }).start();
     }
 }

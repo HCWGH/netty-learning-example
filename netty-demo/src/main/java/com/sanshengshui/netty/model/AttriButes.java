@@ -9,4 +9,5 @@ import io.netty.util.AttributeKey;
  */
 public class AttriButes {
     public static final AttributeKey<Boolean> LOG_FLAG=AttributeKey.newInstance("LOGIN_FLAG");
+    public static final AttributeKey<UserSession> USER_SESSION=AttributeKey.newInstance("USER_SESSION");
 }

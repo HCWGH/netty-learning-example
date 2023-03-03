@@ -81,7 +81,6 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
             // 这里就从简了，只是打印而已
             log.info(
                     "客户端接受到的用户信息。编号:" + userMsg.getId() + ",姓名:" + userMsg.getName() + ",年龄:" + userMsg.getAge());
-
             // 这里返回一个已经接受到数据的状态
             UserMsg.User.Builder userState = UserMsg.User.newBuilder().setState(1);
             ctx.writeAndFlush(userState);
