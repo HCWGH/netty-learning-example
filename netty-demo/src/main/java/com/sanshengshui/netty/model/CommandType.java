@@ -1,7 +1,11 @@
 package com.sanshengshui.netty.model;
 
+import com.sanshengshui.netty.message.req.CreateGroupReq;
 import com.sanshengshui.netty.message.req.LoginReq;
+import com.sanshengshui.netty.message.req.LogoutReq;
 import com.sanshengshui.netty.message.req.MessageReq;
+import com.sanshengshui.netty.message.res.CreateGroupRes;
+import com.sanshengshui.netty.message.res.LogoutRes;
 import com.sanshengshui.netty.message.res.LoinRes;
 import com.sanshengshui.netty.message.res.MessageRes;
 
@@ -18,6 +22,10 @@ public enum CommandType {
     LOGIN_RESPONSE((byte) 2, "LOGIN_RESPONSE", LoinRes.class),
     MESSAGE_REQUEST((byte) 3, "MESSAGE_REQUEST", MessageReq.class),
     MESSAGE_RESPONSE((byte) 4, "MESSAGE_RESPONSE", MessageRes.class),
+    CREATE_GROUP_REQUEST((byte) 5, "CREATE_GROUP_REQUEST", CreateGroupReq.class),
+    CREATE_GROUP_RESPONSE((byte) 6, "CREATE_GROUP_RESPONSE", CreateGroupRes.class),
+    LOGOUT_REQUEST((byte) 7, "LOGOUT_REQUEST", LogoutReq.class),
+    LOGOUT_RESPONSE((byte) 8, "LOGOUT_RESPONSE", LogoutRes.class),
     ;
     private Byte bytes;
     private String name;

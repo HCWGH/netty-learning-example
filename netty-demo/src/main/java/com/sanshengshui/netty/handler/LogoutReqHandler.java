@@ -18,6 +18,6 @@ public class LogoutReqHandler extends SimpleChannelInboundHandler<LogoutReq> {
         LogoutRes logoutRes = new LogoutRes();
         logoutRes.setRes(true);
         logoutRes.setMsg("Logout success");
-        ctx.writeAndFlush(logoutRes);
+        ctx.channel().writeAndFlush(logoutRes);
     }
 }

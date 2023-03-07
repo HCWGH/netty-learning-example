@@ -1,5 +1,6 @@
 package com.sanshengshui.netty.message.req;
 
+import com.sanshengshui.netty.model.CommandType;
 import com.sanshengshui.netty.protocol.Packet;
 
 /**
@@ -20,6 +21,6 @@ public class LogoutReq extends Packet {
 
     @Override
     public Byte getCommandType() {
-        return null;
+        return CommandType.LOGOUT_REQUEST.getBytes();
     }
 }

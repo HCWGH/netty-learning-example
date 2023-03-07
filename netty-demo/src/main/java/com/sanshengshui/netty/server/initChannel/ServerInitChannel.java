@@ -30,9 +30,9 @@ public class ServerInitChannel extends ChannelInitializer<NioSocketChannel> {
         pipeline.addLast(new PacketDecoder());
         pipeline.addLast(new MyLoginSimpleChannelHandler());
         pipeline.addLast(new AuthHandler());
+        pipeline.addLast(new PointToPointMessageHandler());
         pipeline.addLast(new MyRequestSimpleChannelHandler());
         pipeline.addLast(new LogoutReqHandler());
-        pipeline.addLast(new PointToPointMessageHandler());
         pipeline.addLast(new MyCreateGroupChannelHandler());
         //编码
         pipeline.addLast(new PacketEncoding());

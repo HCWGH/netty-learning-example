@@ -5,7 +5,9 @@ import com.sanshengshui.netty.command.impl.CommandHandleEnter;
 import com.sanshengshui.netty.command.impl.LoginCommandHandle;
 import com.sanshengshui.netty.edcoding.PacketCodec;
 import com.sanshengshui.netty.message.req.MessageReq;
+import com.sanshengshui.netty.model.UserSession;
 import com.sanshengshui.netty.util.LoginUtil;
+import com.sanshengshui.netty.util.SessionUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -82,13 +84,17 @@ public class NettyClient {
                 Scanner scanner = new Scanner(System.in);
                 if (!LoginUtil.hasLogin(channel)) {
                     loginCommandHandle.execute(scanner, channel);
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     handleEnter.execute(scanner, channel);
-                }
-                try {
-                    TimeUnit.SECONDS.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    UserSession userSession = SessionUtil.getUserSession(channel);
+                    if (userSession == null) {
+                        break;
+                    }
                 }
             }
         }).start();

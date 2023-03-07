@@ -1,5 +1,6 @@
 package com.sanshengshui.netty.message.req;
 
+import com.sanshengshui.netty.model.CommandType;
 import com.sanshengshui.netty.protocol.Packet;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class CreateGroupReq extends Packet {
 
     @Override
     public Byte getCommandType() {
-        return null;
+        return CommandType.CREATE_GROUP_REQUEST.getBytes();
     }
 
     public CreateGroupReq() {

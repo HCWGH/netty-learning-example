@@ -1,5 +1,6 @@
 package com.sanshengshui.netty.message.res;
 
+import com.sanshengshui.netty.model.CommandType;
 import com.sanshengshui.netty.protocol.Packet;
 
 import java.util.List;
@@ -15,10 +16,9 @@ public class CreateGroupRes extends Packet {
     private Boolean succeed;
 
 
-
     @Override
     public Byte getCommandType() {
-        return null;
+        return CommandType.CREATE_GROUP_RESPONSE.getBytes();
     }
 
     public Boolean getSucceed() {

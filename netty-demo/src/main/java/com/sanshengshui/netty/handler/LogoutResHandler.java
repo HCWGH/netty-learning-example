@@ -1,6 +1,7 @@
 package com.sanshengshui.netty.handler;
 
 import com.sanshengshui.netty.message.res.LogoutRes;
+import com.sanshengshui.netty.util.SessionUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -13,5 +14,9 @@ public class LogoutResHandler extends SimpleChannelInboundHandler<LogoutRes> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LogoutRes msg) throws Exception {
         System.out.println("Logout result:" + msg.getMsg());
+        if (msg.isRes()) {
+            SessionUtil.unBindSession(ctx.channel());
+            ctx.channel().close();
+        }
     }
 }

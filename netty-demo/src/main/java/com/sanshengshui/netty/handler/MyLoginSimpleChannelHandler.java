@@ -30,15 +30,15 @@ public class MyLoginSimpleChannelHandler extends SimpleChannelInboundHandler<Log
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginReq loginReq) throws Exception {
         String userName = loginReq.getUserName();
         String password = loginReq.getPassword();
-        System.out.println("================User login information " + userName + "|" + password + "=================");
         LoinRes loinRes = new LoinRes();
         String response = "Account password error";
         boolean login = false;
+        String userId = "";
         if (valid(userName, password)) {
             response = "Hello ," + userName + " welcome to our service";
             login = true;
             UserSession userSession = new UserSession();
-            String userId = UUID.randomUUID().toString().split("-")[0];
+            userId = UUID.randomUUID().toString().split("-")[0];
             loinRes.setUserId(userId);
             userSession.setUserId(userId);
             userSession.setUserName(userName);
@@ -48,6 +48,7 @@ public class MyLoginSimpleChannelHandler extends SimpleChannelInboundHandler<Log
         }
         loinRes.setSuccessful(login);
         loinRes.setResponseMes(response);
+        System.out.println("================User login information " + userName + "|" + password + "|" + userId + "=================");
         //ByteBuf encode = PacketCodec.encode(loinRes);
         channelHandlerContext.channel().writeAndFlush(loinRes);
     }
