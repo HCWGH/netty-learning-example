@@ -1,7 +1,6 @@
 package com.sanshengshui.netty.handler;
 
 import com.sanshengshui.netty.message.res.CreateGroupRes;
-import com.sanshengshui.netty.protocol.Packet;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

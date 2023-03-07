@@ -10,6 +10,15 @@ import com.sanshengshui.netty.protocol.Packet;
  */
 public class MessageReq extends Packet {
     private String message;
+    private String receiver;
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
 
     public String getMessage() {
         return message;

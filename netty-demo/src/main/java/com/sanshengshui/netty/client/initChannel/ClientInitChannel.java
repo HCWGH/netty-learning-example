@@ -3,8 +3,7 @@ package com.sanshengshui.netty.client.initChannel;
 import com.sanshengshui.netty.client.handler.ClientBaseHandler;
 import com.sanshengshui.netty.edcoding.PacketDecoder;
 import com.sanshengshui.netty.edcoding.PacketEncoding;
-import com.sanshengshui.netty.handler.LoginResponseSimChannelHandler;
-import com.sanshengshui.netty.handler.MessageResponseSimpleChannelHandler;
+import com.sanshengshui.netty.handler.*;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -23,6 +22,9 @@ public class ClientInitChannel extends ChannelInitializer<NioSocketChannel> {
         //pipeline.addLast(BASE_CLIENT_HANDLER);
         pipeline.addLast(new PacketDecoder());
         pipeline.addLast(new LoginResponseSimChannelHandler());
+        pipeline.addLast(new MyCreateGroupResHandler());
+        pipeline.addLast(new LogoutResHandler());
+        pipeline.addLast(new PointToPointResHandler());
         pipeline.addLast(new MessageResponseSimpleChannelHandler());
         pipeline.addLast(new PacketEncoding());
     }

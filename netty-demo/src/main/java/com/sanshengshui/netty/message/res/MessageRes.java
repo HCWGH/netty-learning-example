@@ -10,7 +10,25 @@ import com.sanshengshui.netty.protocol.Packet;
  */
 public class MessageRes extends Packet {
     private String message;
+    private String sendUser;
+    private String sendUserName;
     private Boolean successful;
+
+    public String getSendUser() {
+        return sendUser;
+    }
+
+    public void setSendUser(String sendUser) {
+        this.sendUser = sendUser;
+    }
+
+    public String getSendUserName() {
+        return sendUserName;
+    }
+
+    public void setSendUserName(String sendUserName) {
+        this.sendUserName = sendUserName;
+    }
 
     public String getMessage() {
         return message;

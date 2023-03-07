@@ -85,6 +85,11 @@ public class NettyClient {
                 } else {
                     handleEnter.execute(scanner, channel);
                 }
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
     }

@@ -11,6 +11,24 @@ import com.sanshengshui.netty.protocol.Packet;
 public class LoinRes extends Packet {
     private String responseMes;
     private Boolean isSuccessful;
+    private String userId;
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public Boolean getSuccessful() {
         return isSuccessful;
