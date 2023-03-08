@@ -32,10 +32,12 @@ public class MyCreateGroupChannelHandler extends SimpleChannelInboundHandler<Cre
                 userNameList.add("[" + session.getUserName() + "|" + session.getUserId() + "]");
             }
         });
+        String groupId = "groupId_" + System.currentTimeMillis() + "_" + (int) (Math.random() * 1000);
         CreateGroupRes groupRes = new CreateGroupRes();
-        groupRes.setGroupId("groupId_" + System.currentTimeMillis() + "_" + (int) (Math.random() * 1000));
+        groupRes.setGroupId(groupId);
         groupRes.setUserNameList(userNameList);
         groupRes.setSucceed(true);
+        SessionUtil.bindGroupSession(groupId, channelGroup);
         //response
         userIdList.forEach(userId -> {
             Channel channel = SessionUtil.getChannel(userId);

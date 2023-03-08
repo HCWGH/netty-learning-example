@@ -27,14 +27,17 @@ public class ServerInitChannel extends ChannelInitializer<NioSocketChannel> {
 //        pipeline.addLast(new HandlerOutB());
 //        pipeline.addLast(new HandlerOutC());
         //先解码
-        pipeline.addLast(new PacketDecoder());
-        pipeline.addLast(new MyLoginSimpleChannelHandler());
-        pipeline.addLast(new AuthHandler());
-        pipeline.addLast(new PointToPointMessageHandler());
-        pipeline.addLast(new MyRequestSimpleChannelHandler());
-        pipeline.addLast(new LogoutReqHandler());
-        pipeline.addLast(new MyCreateGroupChannelHandler());
-        //编码
-        pipeline.addLast(new PacketEncoding());
+        pipeline.addLast(new PacketDecoder())
+                .addLast(new MyLoginSimpleChannelHandler())
+                .addLast(new AuthHandler())
+                .addLast(new JoinGroupHandler())
+                .addLast(new ListGroupReqHandler())
+                .addLast(new QuitGroupReqHandler())
+                .addLast(new PointToPointMessageHandler())
+                .addLast(new MyRequestSimpleChannelHandler())
+                .addLast(new LogoutReqHandler())
+                .addLast(new MyCreateGroupChannelHandler())
+                //编码
+                .addLast(new PacketEncoding());
     }
 }

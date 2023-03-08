@@ -19,6 +19,9 @@ public class CommandHandleEnter implements CommandHandle {
         COMMAND_HANDLE_MAP.put("ptp", new PointToPointHandle());
         COMMAND_HANDLE_MAP.put("cgh", new CreateGroupHandle());
         COMMAND_HANDLE_MAP.put("lch", new LogoutCommandHandle());
+        COMMAND_HANDLE_MAP.put("jgh", new JoinGroupHandle());
+        COMMAND_HANDLE_MAP.put("lgm", new ListGroupMemberHandle());
+        COMMAND_HANDLE_MAP.put("qgh", new QuitGroupHandle());
     }
 
     @Override

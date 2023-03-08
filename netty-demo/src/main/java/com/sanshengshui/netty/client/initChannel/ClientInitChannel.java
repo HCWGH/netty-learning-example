@@ -20,12 +20,15 @@ public class ClientInitChannel extends ChannelInitializer<NioSocketChannel> {
     protected void initChannel(NioSocketChannel channel) throws Exception {
         ChannelPipeline pipeline = channel.pipeline();
         //pipeline.addLast(BASE_CLIENT_HANDLER);
-        pipeline.addLast(new PacketDecoder());
-        pipeline.addLast(new LoginResponseSimChannelHandler());
-        pipeline.addLast(new MyCreateGroupResHandler());
-        pipeline.addLast(new LogoutResHandler());
-        pipeline.addLast(new PointToPointResHandler());
-        pipeline.addLast(new MessageResponseSimpleChannelHandler());
-        pipeline.addLast(new PacketEncoding());
+        pipeline.addLast(new PacketDecoder())
+                .addLast(new LoginResponseSimChannelHandler())
+                .addLast(new MyCreateGroupResHandler())
+                .addLast(new JoinGroupResHandler())
+                .addLast(new ListGroupResHandler())
+                .addLast(new QuitGroupResHandler())
+                .addLast(new LogoutResHandler())
+                .addLast(new PointToPointResHandler())
+                .addLast(new MessageResponseSimpleChannelHandler())
+                .addLast(new PacketEncoding());
     }
 }

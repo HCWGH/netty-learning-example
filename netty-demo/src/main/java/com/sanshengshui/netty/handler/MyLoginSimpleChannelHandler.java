@@ -24,6 +24,7 @@ public class MyLoginSimpleChannelHandler extends SimpleChannelInboundHandler<Log
         USER_PASSWORD_MAP.put("cxk", "ZhiYinNiTaiMei");
         USER_PASSWORD_MAP.put("mbg", "JieHuaFa");
         USER_PASSWORD_MAP.put("hcw", "1E7753");
+        USER_PASSWORD_MAP.put("hxk", "12C7613");
     }
 
     @Override
