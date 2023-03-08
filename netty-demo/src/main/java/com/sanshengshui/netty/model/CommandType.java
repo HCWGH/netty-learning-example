@@ -1,13 +1,7 @@
 package com.sanshengshui.netty.model;
 
-import com.sanshengshui.netty.message.req.CreateGroupReq;
-import com.sanshengshui.netty.message.req.LoginReq;
-import com.sanshengshui.netty.message.req.LogoutReq;
-import com.sanshengshui.netty.message.req.MessageReq;
-import com.sanshengshui.netty.message.res.CreateGroupRes;
-import com.sanshengshui.netty.message.res.LogoutRes;
-import com.sanshengshui.netty.message.res.LoinRes;
-import com.sanshengshui.netty.message.res.MessageRes;
+import com.sanshengshui.netty.message.req.*;
+import com.sanshengshui.netty.message.res.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +20,12 @@ public enum CommandType {
     CREATE_GROUP_RESPONSE((byte) 6, "CREATE_GROUP_RESPONSE", CreateGroupRes.class),
     LOGOUT_REQUEST((byte) 7, "LOGOUT_REQUEST", LogoutReq.class),
     LOGOUT_RESPONSE((byte) 8, "LOGOUT_RESPONSE", LogoutRes.class),
+    JOIN_GROUP_REQUEST((byte) 9, "JOIN_GROUP_REQUEST", JoinGroupReq.class),
+    JOIN_GROUP_RESPONSE((byte) 10, "JOIN_GROUP_RESPONSE", JoinGroupRes.class),
+    LIST_GROUP_REQUEST((byte) 11, "LIST_GROUP_REQUEST", ListGroupReq.class),
+    LIST_GROUP_RESPONSE((byte) 12, "LIST_GROUP_RESPONSE", ListGroupRes.class),
+    QUIT_GROUP_REQUEST((byte) 13, "QUIT_GROUP_REQUEST", QuitGroupReq.class),
+    QUIT_GROUP_RESPONSE((byte) 14, "QUIT_GROUP_RESPONSE", QuitGroupRes.class),
     ;
     private Byte bytes;
     private String name;

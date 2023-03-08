@@ -3,6 +3,8 @@ package com.sanshengshui.netty.util;
 import com.sanshengshui.netty.model.AttriButes;
 import com.sanshengshui.netty.model.UserSession;
 import io.netty.channel.Channel;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SessionUtil {
     private static final Map<String, Channel> USER_CHANNEL_MAP = new ConcurrentHashMap<>(16);
+    private static final Map<String, DefaultChannelGroup> GROUP_CHANNEL_MAP = new ConcurrentHashMap<>(16);
 
     public static void bindSession(UserSession userSession, Channel channel) {
         USER_CHANNEL_MAP.put(userSession.getUserId(), channel);
@@ -28,6 +31,14 @@ public class SessionUtil {
         }
     }
 
+    public static void bindGroupSession(String groupId, DefaultChannelGroup channelGroup) {
+        GROUP_CHANNEL_MAP.put(groupId, channelGroup);
+    }
+
+    public static void unBindGroupSession(String groupId) {
+        GROUP_CHANNEL_MAP.remove(groupId);
+    }
+
     public static UserSession getUserSession(Channel channel) {
         return channel.attr(AttriButes.USER_SESSION).get();
     }
@@ -36,5 +47,8 @@ public class SessionUtil {
         return USER_CHANNEL_MAP.get(userId);
     }
 
+    public static ChannelGroup getChannelGroup(String groupId) {
+        return GROUP_CHANNEL_MAP.get(groupId);
+    }
 
 }
