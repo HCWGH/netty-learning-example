@@ -28,6 +28,7 @@ public class ClientInitChannel extends ChannelInitializer<NioSocketChannel> {
                 .addLast(new QuitGroupResHandler())
                 .addLast(new LogoutResHandler())
                 .addLast(new PointToPointResHandler())
+                .addLast(new GroupMessageResHandler())
                 .addLast(new MessageResponseSimpleChannelHandler())
                 .addLast(new PacketEncoding());
     }

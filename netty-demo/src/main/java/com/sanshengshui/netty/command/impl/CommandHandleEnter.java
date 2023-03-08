@@ -22,6 +22,7 @@ public class CommandHandleEnter implements CommandHandle {
         COMMAND_HANDLE_MAP.put("jgh", new JoinGroupHandle());
         COMMAND_HANDLE_MAP.put("lgm", new ListGroupMemberHandle());
         COMMAND_HANDLE_MAP.put("qgh", new QuitGroupHandle());
+        COMMAND_HANDLE_MAP.put("gmh", new GroupMessageHandle());
     }
 
     @Override

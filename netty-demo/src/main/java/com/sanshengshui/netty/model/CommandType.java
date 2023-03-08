@@ -26,6 +26,8 @@ public enum CommandType {
     LIST_GROUP_RESPONSE((byte) 12, "LIST_GROUP_RESPONSE", ListGroupRes.class),
     QUIT_GROUP_REQUEST((byte) 13, "QUIT_GROUP_REQUEST", QuitGroupReq.class),
     QUIT_GROUP_RESPONSE((byte) 14, "QUIT_GROUP_RESPONSE", QuitGroupRes.class),
+    GROUP_MESSAGE_REQUEST((byte) 15, "GROUP_MESSAGE_REQUEST", GroupMessageReq.class),
+    GROUP_MESSAGE_RESPONSE((byte) 16, "GROUP_MESSAGE_RESPONSE", GroupMessageRes.class),
     ;
     private Byte bytes;
     private String name;
