@@ -7,6 +7,7 @@ import com.sanshengshui.netty.model.UserSession;
 import com.sanshengshui.netty.util.LoginUtil;
 import com.sanshengshui.netty.util.SessionUtil;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -17,7 +18,10 @@ import java.util.UUID;
  * @date 2023/2/15 19:21
  * @todo 客户端处理登录请求响应消息
  */
+@ChannelHandler.Sharable
 public class LoginResponseSimChannelHandler extends SimpleChannelInboundHandler<LoinRes> {
+    public static final LoginResponseSimChannelHandler INSTANCE = new LoginResponseSimChannelHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoinRes loinRes) throws Exception {
         System.out.println("service response message :" + loinRes.getResponseMes());

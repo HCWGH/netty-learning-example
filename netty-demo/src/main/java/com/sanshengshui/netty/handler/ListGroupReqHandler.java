@@ -4,6 +4,7 @@ import com.sanshengshui.netty.message.req.ListGroupReq;
 import com.sanshengshui.netty.message.res.ListGroupRes;
 import com.sanshengshui.netty.model.UserSession;
 import com.sanshengshui.netty.util.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -15,7 +16,10 @@ import java.util.StringJoiner;
  * @date 2023/3/8 15:22
  * @todo
  */
+@ChannelHandler.Sharable
 public class ListGroupReqHandler extends SimpleChannelInboundHandler<ListGroupReq> {
+    public final static ListGroupReqHandler INSTANCE = new ListGroupReqHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ListGroupReq msg) throws Exception {
         String groupId = msg.getGroupId();

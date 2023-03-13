@@ -1,6 +1,7 @@
 package com.sanshengshui.netty.handler;
 
 import com.sanshengshui.netty.message.res.GroupMessageRes;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -9,7 +10,10 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * @date 2023/3/8 19:57
  * @todo
  */
+@ChannelHandler.Sharable
 public class GroupMessageResHandler extends SimpleChannelInboundHandler<GroupMessageRes> {
+    public static final GroupMessageResHandler INSTANCE = new GroupMessageResHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRes msg) throws Exception {
         String message = msg.getMessage();

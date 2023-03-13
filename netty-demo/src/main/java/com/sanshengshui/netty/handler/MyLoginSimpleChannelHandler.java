@@ -5,6 +5,7 @@ import com.sanshengshui.netty.message.res.LoinRes;
 import com.sanshengshui.netty.model.UserSession;
 import com.sanshengshui.netty.util.LoginUtil;
 import com.sanshengshui.netty.util.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -17,8 +18,10 @@ import java.util.UUID;
  * @date 2023/2/15 19:15
  * @todo 根据泛型处理登录请求
  */
+@ChannelHandler.Sharable
 public class MyLoginSimpleChannelHandler extends SimpleChannelInboundHandler<LoginReq> {
     private static final Map<String, String> USER_PASSWORD_MAP = new HashMap<>(16);
+    public static final MyLoginSimpleChannelHandler INSTANCE = new MyLoginSimpleChannelHandler();
 
     static {
         USER_PASSWORD_MAP.put("cxk", "ZhiYinNiTaiMei");

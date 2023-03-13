@@ -3,6 +3,7 @@ package com.sanshengshui.netty.handler;
 
 import com.sanshengshui.netty.message.req.MessageReq;
 import com.sanshengshui.netty.message.res.MessageRes;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -11,7 +12,10 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * @date 2023/2/15 19:18
  * @todo 根据泛型处理消息发送请求
  */
+@ChannelHandler.Sharable
 public class MyRequestSimpleChannelHandler extends SimpleChannelInboundHandler<MessageReq> {
+    public static final MyRequestSimpleChannelHandler INSTANCE = new MyRequestSimpleChannelHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageReq messageReq) throws Exception {
         String message = messageReq.getMessage();

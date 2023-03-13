@@ -4,6 +4,7 @@ import com.sanshengshui.netty.message.req.QuitGroupReq;
 import com.sanshengshui.netty.message.res.QuitGroupRes;
 import com.sanshengshui.netty.util.SessionUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -13,7 +14,10 @@ import io.netty.channel.group.ChannelGroup;
  * @date 2023/3/8 16:01
  * @todo
  */
+@ChannelHandler.Sharable
 public class QuitGroupReqHandler extends SimpleChannelInboundHandler<QuitGroupReq> {
+    public static final QuitGroupReqHandler INSTANCE = new QuitGroupReqHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, QuitGroupReq msg) throws Exception {
         String groupId = msg.getGroupId();
