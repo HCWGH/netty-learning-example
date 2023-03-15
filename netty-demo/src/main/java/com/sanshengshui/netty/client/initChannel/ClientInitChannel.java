@@ -4,6 +4,7 @@ import com.sanshengshui.netty.client.handler.ClientBaseHandler;
 import com.sanshengshui.netty.edcoding.MixCodecHandler;
 import com.sanshengshui.netty.edcoding.PacketDecoder;
 import com.sanshengshui.netty.edcoding.PacketEncoding;
+import com.sanshengshui.netty.edcoding.SelectorHandler;
 import com.sanshengshui.netty.handler.*;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -32,17 +33,23 @@ public class ClientInitChannel extends ChannelInitializer<NioSocketChannel> {
 //                .addLast(new GroupMessageResHandler())
 //                .addLast(new MessageResponseSimpleChannelHandler())
 //                .addLast(new PacketEncoding());
-//=======================================ChannelHandler单列优化，避免每次新连接创建对象,编解码合并==================================================
-        pipeline.addLast(MixCodecHandler.INSTANCE)
-                .addLast(LoginResponseSimChannelHandler.INSTANCE)
-                .addLast(MyCreateGroupResHandler.INSTANCE)
-                .addLast(JoinGroupResHandler.INSTANCE)
-                .addLast(ListGroupResHandler.INSTANCE)
-                .addLast(QuitGroupResHandler.INSTANCE)
-                .addLast(LogoutResHandler.INSTANCE)
-                .addLast(PointToPointResHandler.INSTANCE)
-                .addLast(GroupMessageResHandler.INSTANCE)
-                .addLast(MessageResponseSimpleChannelHandler.INSTANCE);
 
+//=======================================ChannelHandler单列优化，避免每次新连接创建对象,编解码合并==================================================
+
+//        pipeline.addLast(MixCodecHandler.INSTANCE)
+//                .addLast(LoginResponseSimChannelHandler.INSTANCE)
+//                .addLast(MyCreateGroupResHandler.INSTANCE)
+//                .addLast(JoinGroupResHandler.INSTANCE)
+//                .addLast(ListGroupResHandler.INSTANCE)
+//                .addLast(QuitGroupResHandler.INSTANCE)
+//                .addLast(LogoutResHandler.INSTANCE)
+//                .addLast(PointToPointResHandler.INSTANCE)
+//                .addLast(GroupMessageResHandler.INSTANCE)
+//                .addLast(MessageResponseSimpleChannelHandler.INSTANCE);
+
+//======================================Handler选择器减少消息的传递路径=================================================================
+
+        pipeline.addLast(MixCodecHandler.INSTANCE)
+                .addLast(SelectorHandler.INSTANCE);
     }
 }
